@@ -1,0 +1,24 @@
+{
+  "name": "telegram-game-bot",
+  "version": "1.0.0",
+  "description": "Testing the Telegram bot API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olpeh/telegram-game-bot.git"
+  },
+  "author": "Olavi Haapala",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/olpeh/telegram-game-bot/issues"
+  },
+  "homepage": "https://github.com/olpeh/telegram-game-bot#readme",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "telegraf": "^3.25.5"
+  }
+}
