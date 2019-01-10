@@ -1,20 +1,44 @@
 const Telegraf = require('telegraf');
 const Extra = require('telegraf/extra');
-const Markup = require('telegraf/markup');
 require('dotenv').config();
 
-const gameShortName = 'testipeli';
-const gameUrl = 'https://olpe.fi/koodikerho/day-09/';
+const setup = () => {
+  const botToken = process.env.BOT_TOKEN;
+  console.log('Setting up telegram bot...');
+  if (botToken) {
+    const bot = new Telegraf(botToken);
 
-const markup = Extra.markup(
-  Markup.inlineKeyboard([
-    Markup.gameButton('🎮 Play now!'),
-    Markup.urlButton('Made by', 'https://olpe.fi')
-  ])
-);
+    bot.use((ctx, next) => {
+      const start = new Date();
+      return next(ctx).then(() => {
+        const ms = new Date() - start;
+        console.log('Response time %sms', ms);
+      });
+    });
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
-bot.start(({ replyWithGame }) => replyWithGame(gameShortName));
-bot.command('foo', ({ replyWithGame }) => replyWithGame(gameShortName, markup));
-bot.gameQuery(({ answerGameQuery }) => answerGameQuery(gameUrl));
-bot.startPolling();
+    bot.start(ctx =>
+      ctx.reply(
+        'Terve. Olen Yleishyödyllinen botti. Lähetä komento */help* nähdäksesi mitä kaikkea osaan tehdä.',
+        Extra.markdown()
+      )
+    );
+
+    bot.command('help', ctx => {
+      console.log({ ctx });
+      ctx.reply(
+        `Tässäpä mitä osaan:
+        - /help -> Kerron mitä osaan
+        - muuta en vielä osaa 😢
+        `,
+        Extra.markdown()
+      );
+    });
+
+    bot.startPolling();
+    console.log('Bot listening to messages and commands...');
+  } else {
+    console.warn('Telegram bot token was missing... failed to start.');
+  }
+};
+
+setup();
