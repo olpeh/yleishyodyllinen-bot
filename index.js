@@ -47,6 +47,8 @@ bot.on('message', ctx =>
   ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))
 );
 
+bot.action('delete', ({ deleteMessage }) => deleteMessage());
+
 bot.launch();
 console.log('Bot listening to messages and commands...');
 
