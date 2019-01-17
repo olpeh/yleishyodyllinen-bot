@@ -1,5 +1,6 @@
 const Telegraf = require('telegraf');
 const Extra = require('telegraf/extra');
+const koa = require('koa');
 require('dotenv').config();
 
 const botToken = process.env.BOT_TOKEN;
@@ -39,3 +40,9 @@ bot.command('help', ctx => {
 
 bot.launch();
 console.log('Bot listening to messages and commands...');
+
+// Binding the port so that Heroku will not kill the process
+console.log('Starting a dummy server');
+const port = process.env.PORT || 4000;
+const app = new koa();
+app.listen(port);

@@ -19,6 +19,7 @@
   "homepage": "https://github.com/olpeh/telegram-game-bot#readme",
   "dependencies": {
     "dotenv": "^6.2.0",
+    "koa": "^2.6.2",
     "telegraf": "^3.26.0"
   }
 }
