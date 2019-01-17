@@ -1,5 +1,6 @@
 const Telegraf = require('telegraf');
 const Extra = require('telegraf/extra');
+const Markup = require('telegraf/markup');
 const koa = require('koa');
 require('dotenv').config();
 
@@ -28,7 +29,6 @@ bot.start(ctx =>
 );
 
 bot.command('help', ctx => {
-  console.log({ ctx });
   ctx.reply(
     `Tässäpä mitä osaan:
     - /help -> Kerron mitä osaan
@@ -37,6 +37,15 @@ bot.command('help', ctx => {
     Extra.markdown()
   );
 });
+
+const keyboard = Markup.inlineKeyboard([
+  Markup.urlButton('👍🏻', 'https://olpe.fi'),
+  Markup.callbackButton('Delete', 'delete')
+]);
+
+bot.on('message', ctx =>
+  ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))
+);
 
 bot.launch();
 console.log('Bot listening to messages and commands...');
