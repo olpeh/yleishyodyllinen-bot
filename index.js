@@ -34,7 +34,7 @@ const setup = () => {
       );
     });
 
-    bot.startPolling();
+    bot.launch();
     console.log('Bot listening to messages and commands...');
   } else {
     console.warn('Telegram bot token was missing... failed to start.');
