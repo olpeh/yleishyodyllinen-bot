@@ -9,4 +9,5 @@ Testing the telegram bot API
 
 ## Deployment
 
-- Deployments to Heroku happens automatically for all commits to master branch
+- Deployments to Now happens automatically for all commits to master branch
+- Manual deployment: `now`

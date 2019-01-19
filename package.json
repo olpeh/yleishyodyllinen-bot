@@ -1,5 +1,5 @@
 {
-  "name": "telegram-game-bot",
+  "name": "yleishyodyllinen-bot",
   "version": "1.0.0",
   "description": "Testing the Telegram bot API",
   "main": "index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/olpeh/telegram-game-bot.git"
+    "url": "git+https://github.com/olpeh/yleishyodyllinen-bot.git"
   },
   "author": "Olavi Haapala",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/olpeh/telegram-game-bot/issues"
+    "url": "https://github.com/olpeh/yleishyodyllinen-bot/issues"
   },
-  "homepage": "https://github.com/olpeh/telegram-game-bot#readme",
+  "homepage": "https://github.com/olpeh/yleishyodyllinen-bot#readme",
   "dependencies": {
     "dotenv": "^6.2.0",
     "koa": "^2.6.2",
