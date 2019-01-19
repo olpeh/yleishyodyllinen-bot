@@ -23,7 +23,7 @@ bot.use((ctx, next) => {
 
 bot.start(ctx =>
   ctx.reply(
-    'Terve. Olen Yleishyödyllinen botti. Lähetä komento */help* nähdäksesi mitä kaikkea osaan tehdä.',
+    'Terve. Olen Yleishyödyllinen botti. Lähetä komento /help nähdäksesi mitä kaikkea osaan tehdä.',
     Extra.markdown()
   )
 );
