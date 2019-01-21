@@ -11,6 +11,14 @@ if (!botToken) {
   return -1;
 }
 
+const tryHard = (fn, ...params) => {
+  try {
+    fn(...params);
+  } catch (e) {
+    console.error('Failed to execute', fn, e);
+  }
+};
+
 const bot = new Telegraf(botToken);
 
 bot.use((ctx, next) => {
@@ -44,7 +52,6 @@ const keyboard2 = Markup.inlineKeyboard([
 ]);
 
 bot.hears(/moi/gi, ctx => {
-  console.log({ from: ctx.from });
   return ctx.reply(
     `No moi, ${ctx.from.first_name}! Mitäs sulle kuuluu?`,
     Extra.markup(keyboard2)
@@ -53,12 +60,11 @@ bot.hears(/moi/gi, ctx => {
 
 bot.action('good', ({ reply, replyWithSticker, deleteMessage }) => {
   reply('Jes! Hyvä!');
-  replyWithSticker('👍');
-  deleteMessage();
+  tryHard(deleteMessage);
 });
 bot.action('bad', ({ reply, deleteMessage }) => {
   reply('No, voi harmi!');
-  deleteMessage();
+  tryHard(deleteMessage);
 });
 
 const keyboard = Markup.inlineKeyboard([
@@ -66,13 +72,15 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Delete', 'delete')
 ]);
 
-const randomPhoto = 'https://picsum.photos/200/300/?random';
-bot.command('random', ({ replyWithPhoto }) => replyWithPhoto(randomPhoto));
-
-bot.action('delete', ({ deleteMessage }) => deleteMessage());
+bot.action('delete', ({ deleteMessage }) => tryHard(deleteMessage));
 
 bot.on('message', ctx =>
-  ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))
+  tryHard(
+    ctx.telegram.sendCopy,
+    ctx.from.id,
+    ctx.message,
+    Extra.markup(keyboard)
+  )
 );
 
 bot.launch();
