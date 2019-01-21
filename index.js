@@ -30,14 +30,16 @@ bot.use((ctx, next) => {
 });
 
 bot.start(ctx =>
-  ctx.reply(
+  tryHard(
+    ctx.reply,
     'Terve. Olen Yleishyödyllinen botti. Lähetä komento /help nähdäksesi mitä kaikkea osaan tehdä.',
     Extra.markdown()
   )
 );
 
 bot.command('help', ctx => {
-  ctx.reply(
+  tryHard(
+    ctx.reply,
     `Tässäpä mitä osaan:
     - /help -> Kerron mitä osaan
     - muuta en vielä osaa 😢
@@ -52,18 +54,19 @@ const keyboard2 = Markup.inlineKeyboard([
 ]);
 
 bot.hears(/moi/gi, ctx => {
-  return ctx.reply(
+  tryHard(
+    ctx.reply,
     `No moi, ${ctx.from.first_name}! Mitäs sulle kuuluu?`,
     Extra.markup(keyboard2)
   );
 });
 
-bot.action('good', ({ reply, replyWithSticker, deleteMessage }) => {
-  reply('Jes! Hyvä!');
+bot.action('good', ({ reply, deleteMessage }) => {
+  tryHard(reply, 'Jes! Hyvä!');
   tryHard(deleteMessage);
 });
 bot.action('bad', ({ reply, deleteMessage }) => {
-  reply('No, voi harmi!');
+  tryHard(reply, 'No, voi harmi!');
   tryHard(deleteMessage);
 });
 
