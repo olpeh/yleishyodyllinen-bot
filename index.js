@@ -38,16 +38,42 @@ bot.command('help', ctx => {
   );
 });
 
+const keyboard2 = Markup.inlineKeyboard([
+  Markup.callbackButton('👍🏻', 'good'),
+  Markup.callbackButton('👎🏻', 'bad')
+]);
+
+bot.hears(/moi/gi, ctx => {
+  console.log({ from: ctx.from });
+  return ctx.reply(
+    `No moi, ${ctx.from.first_name}! Mitäs sulle kuuluu?`,
+    Extra.markup(keyboard2)
+  );
+});
+
+bot.action('good', ({ reply, replyWithSticker, deleteMessage }) => {
+  reply('Jes! Hyvä!');
+  replyWithSticker('👍');
+  deleteMessage();
+});
+bot.action('bad', ({ reply, deleteMessage }) => {
+  reply('No, voi harmi!');
+  deleteMessage();
+});
+
 const keyboard = Markup.inlineKeyboard([
   Markup.urlButton('👍🏻', 'https://olpe.fi'),
   Markup.callbackButton('Delete', 'delete')
 ]);
 
+const randomPhoto = 'https://picsum.photos/200/300/?random';
+bot.command('random', ({ replyWithPhoto }) => replyWithPhoto(randomPhoto));
+
+bot.action('delete', ({ deleteMessage }) => deleteMessage());
+
 bot.on('message', ctx =>
   ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))
 );
-
-bot.action('delete', ({ deleteMessage }) => deleteMessage());
 
 bot.launch();
 console.log('Bot listening to messages and commands...');
