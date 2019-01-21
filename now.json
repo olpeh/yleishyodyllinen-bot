@@ -1,9 +1,0 @@
-{
-  "version": 2,
-  "public": true,
-  "name": "yleishyodyllinen-bot",
-  "builds": [{ "src": "index.js", "use": "@now/node-server" }],
-  "env": {
-    "BOT_TOKEN": "@telegram-bot-token"
-  }
-}
