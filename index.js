@@ -2,6 +2,7 @@ const Telegraf = require('telegraf');
 const Extra = require('telegraf/extra');
 const Markup = require('telegraf/markup');
 const koa = require('koa');
+const route = require('koa-route');
 require('dotenv').config();
 
 const botToken = process.env.BOT_TOKEN;
