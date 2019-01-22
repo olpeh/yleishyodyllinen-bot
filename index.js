@@ -93,4 +93,10 @@ console.log('Bot listening to messages and commands...');
 console.log('Starting a dummy server');
 const port = process.env.PORT || 4000;
 const app = new koa();
+app.use(
+  route.get('/healthcheck', async ctx => {
+    ctx.response.statusCode = 200;
+    ctx.response.body = 'OK';
+  })
+);
 app.listen(port);
