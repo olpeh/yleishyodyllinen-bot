@@ -30,7 +30,7 @@ bot.use((ctx, next) => {
   });
 });
 
-bot.start(ctx =>
+bot.start((ctx) =>
   tryHard(
     ctx.reply,
     'Terve. Olen Yleishyödyllinen botti. Lähetä komento /help nähdäksesi mitä kaikkea osaan tehdä.',
@@ -38,7 +38,7 @@ bot.start(ctx =>
   )
 );
 
-bot.command('help', ctx => {
+bot.command('help', (ctx) => {
   tryHard(
     ctx.reply,
     `Tässäpä mitä osaan:
@@ -51,10 +51,10 @@ bot.command('help', ctx => {
 
 const keyboard2 = Markup.inlineKeyboard([
   Markup.callbackButton('👍🏻', 'good'),
-  Markup.callbackButton('👎🏻', 'bad')
+  Markup.callbackButton('👎🏻', 'bad'),
 ]);
 
-bot.hears(/moi/gi, ctx => {
+bot.hears(/moi/gi, (ctx) => {
   tryHard(
     ctx.reply,
     `No moi, ${ctx.from.first_name}! Mitäs sulle kuuluu?`,
@@ -73,12 +73,12 @@ bot.action('bad', ({ reply, deleteMessage }) => {
 
 const keyboard = Markup.inlineKeyboard([
   Markup.urlButton('👍🏻', 'https://olpe.fi'),
-  Markup.callbackButton('Delete', 'delete')
+  Markup.callbackButton('Delete', 'delete'),
 ]);
 
 bot.action('delete', ({ deleteMessage }) => tryHard(deleteMessage));
 
-bot.on('message', ctx =>
+bot.on('message', (ctx) =>
   tryHard(
     ctx.telegram.sendCopy,
     ctx.from.id,
@@ -86,6 +86,9 @@ bot.on('message', ctx =>
     Extra.markup(keyboard)
   )
 );
+
+const gameUrl = 'https://sad-wing-050035.netlify.app';
+bot.gameQuery(({ answerGameQuery }) => answerGameQuery(gameUrl));
 
 bot.launch();
 console.log('Bot listening to messages and commands...');
@@ -95,7 +98,7 @@ console.log('Starting a dummy server');
 const port = process.env.PORT || 4000;
 const app = new koa();
 app.use(
-  route.get('/healthcheck', async ctx => {
+  route.get('/healthcheck', async (ctx) => {
     ctx.response.statusCode = 200;
     ctx.response.body = 'OK';
   })
