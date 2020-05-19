@@ -88,7 +88,13 @@ bot.on('message', (ctx) =>
 );
 
 const gameUrl = 'https://sad-wing-050035.netlify.app';
-bot.gameQuery(({ answerGameQuery }) => answerGameQuery(gameUrl));
+bot.gameQuery(({ answerGameQuery }) => {
+  try {
+    return answerGameQuery(gameUrl);
+  } catch (e) {
+    console.error('Failed to answerGameQuery', e);
+  }
+});
 
 bot.launch();
 console.log('Bot listening to messages and commands...');
